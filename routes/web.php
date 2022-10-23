@@ -15,12 +15,10 @@ use App\Http\Controllers\Demo\DemoController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::controller(DemoController::class)->group(function(){
-        Route::get('/about',  'Index')->name('about.page');
+        Route::get('/about',  'Index')->name('about.page')->middleware('check');
         Route::get('/contact',  'ContactMethod');
 });
 
@@ -28,7 +26,9 @@ Route::controller(DemoController::class)->group(function(){
 // Route::get('/about', [DemoController::class, 'Index']);
 // Route::get('/contact', [DemoController::class, 'Contact']);
 
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
