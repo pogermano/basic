@@ -40,7 +40,7 @@ Route::controller(AdminController::class)->group(function(){
 // Route::get('/contact', [DemoController::class, 'Contact']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 Route::get('/dashboard', function () {
