@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Home\HomeSliderController;
 
 use App\Http\Controllers\Home\AboutController;
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
