@@ -21,7 +21,7 @@ class AboutController extends Controller
     public function UpdateAbout(Request $request)
     {
 
-       
+
         $about_id = $request->id;
 
         if ($request->file('about_image')) {
@@ -116,19 +116,36 @@ class AboutController extends Controller
   public function EditMultiImage($id){
 
         $multiimage = MultiImage::findOrFail($id);
-       
+
         return view('admin.about_page.edit_multi_image', compact('multiimage'));
 
     }// End Method
 
+    public function DeleteMultiImage($id){
 
-    
+        $multi = MultiImage::findOrFail($id);
+        $img = $multi->multi_image;
+        unlink($img);
+        MultiImage::findOrFail($id)->delete();
+
+        $notification = array(
+            'message' => 'Multi Image Deleted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+
+    }// End Method
+
+
+
 
 
     public function UpdateMultiImage(Request $request)
     {
 
-        
+
         $multi_image_id = $request->id;
 
         if ($request->file('multi_image')) {

@@ -1,6 +1,9 @@
 @extends('frontend.main_master')
 @section('main')
 
+@php
+        $allmultiimage = App\Models\MultiImage::all();
+@endphp
 <main>
 
 <!-- breadcrumb-area -->
@@ -22,12 +25,18 @@
     </div>
     <div class="breadcrumb__wrap__icon">
         <ul>
-            <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon01.png')}}" alt=""></li>
-            <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon02.png')}}" alt=""></li>
+
+            @foreach ( $allmultiimage as $multi)
+            <li><img src="{{$multi->multi_image}}" alt="XD"></li>
+            @endforeach
+
+        {{--
+                        <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon01.png')}}" alt=""></li>
+                         <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon02.png')}}" alt=""></li>
             <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon03.png')}}" alt=""></li>
             <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon04.png')}}" alt=""></li>
             <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon05.png')}}" alt=""></li>
-            <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon06.png')}}" alt=""></li>
+            <li><img src="{{asset('frontend/assets/img/icons/breadcrumb_icon06.png')}}" alt=""></li> --}}
         </ul>
     </div>
 </section>
@@ -39,7 +48,8 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about__image">
-                    <img src="{{asset('frontend/assets/img/images/about_img.png')}}" alt="">
+            {{--         <img src="{{asset('frontend/assets/img/images/about_img.png')}}" alt=""> --}}
+            <img src="{{ $aboutpage->about_image }}" alt="">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -85,7 +95,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                         {!! $aboutpage->long_description!!}
-                            
+
                         </div>
                         <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                             <div class="about__skill__wrap">
