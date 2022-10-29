@@ -1,0 +1,11 @@
+--2022-10-28 17:20:33--  https://dl.google.com/linux/linux_signing_key.pub
+Resolvendo dl.google.com (dl.google.com)... 2800:3f0:4001:826::200e, 142.251.129.142
+Conectando-se a dl.google.com (dl.google.com)|2800:3f0:4001:826::200e|:443... conectado.
+A requisição HTTP foi enviada, aguardando resposta... 200 OK
+Tamanho: 12415 (12K) [application/octet-stream]
+Salvando em: ‘STDOUT’
+
+-                     0%[                    ]       0  --.-KB/s               -                   100%[===================>]  12,12K  --.-KB/s    em 0,003s  
+
+2022-10-28 17:20:33 (3,40 MB/s) - escrito para a saída padrão  [12415/12415]
+

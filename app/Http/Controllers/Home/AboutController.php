@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\About;
+use App\Models\MultiImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Image;
 
 class AboutController extends Controller
@@ -19,14 +21,14 @@ class AboutController extends Controller
     public function UpdateAbout(Request $request)
     {
 
-        $save_path= 'upload/about_image/';
+       
         $about_id = $request->id;
-      
+
         if ($request->file('about_image')) {
             $image = $request->file('about_image');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
-          
-      
+
+
 
             Image::make($image)->resize(523, 605)->save('upload/about_image/' . $name_gen);
             $save_url = 'upload/about_image/' . $name_gen;
@@ -35,7 +37,7 @@ class AboutController extends Controller
                 'title' => $request->title,
                 'short_title' => $request->short_title,
                 'short_description' => $request->short_description,
-                'long_description' => $request->long_description,                
+                'long_description' => $request->long_description,
                 'about_image' => $save_url,
 
             ]);
@@ -51,7 +53,7 @@ class AboutController extends Controller
                 'title' => $request->title,
                 'short_title' => $request->short_title,
                 'short_description' => $request->short_description,
-                'long_description' => $request->long_description,  
+                'long_description' => $request->long_description,
 
             ]);
             $notification = array(
@@ -64,11 +66,91 @@ class AboutController extends Controller
 
     } // End Method
 
-    
+
     public function HomeAbout()
     {
         $aboutpage = About::find(1);
-        return view('frontend.about_page',compact('aboutpage'));
+        return view('frontend.about_page', compact('aboutpage'));
     } // End Method
 
-} 
+    public function AboutMultiImage()
+    {
+        return view('admin.about_page.multimage');
+    } // End Method
+
+    public function StoreMultiImage(Request $request)
+    {
+        $image = $request->file('multi_image');
+
+        foreach ($image as $multi_image) {
+
+            $name_gen = hexdec(uniqid()) . '.' . $multi_image->getClientOriginalExtension();  // 3434343443.jpg
+
+
+            Image::make($multi_image)->resize(220, 220)->save('upload/multi/' . $name_gen);
+            $save_url = 'upload/multi/' . $name_gen;
+
+            MultiImage::insert([
+                'multi_image' => $save_url,
+                'created_at' => Carbon::now(),
+
+            ]);
+        } // End of the froeach
+        $notification = array(
+            'message' => 'Multi Image Inserted Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('all.multi.image')->with($notification);
+    } // End Method
+
+
+    public function AllMultiImage(){
+
+        $allmultiimage = MultiImage::all();
+        return view('admin.about_page.all_multiimage', compact('allmultiimage'));
+
+    }// End Method
+
+
+  public function EditMultiImage($id){
+
+        $multiimage = MultiImage::findOrFail($id);
+       
+        return view('admin.about_page.edit_multi_image', compact('multiimage'));
+
+    }// End Method
+
+
+    
+
+
+    public function UpdateMultiImage(Request $request)
+    {
+
+        
+        $multi_image_id = $request->id;
+
+        if ($request->file('multi_image')) {
+            $image = $request->file('multi_image');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
+
+
+
+            Image::make($image)->resize(220, 220)->save('upload/multi/' . $name_gen);
+            $save_url = 'upload/multi/' . $name_gen;
+
+            $multiimage = MultiImage::findOrFail($multi_image_id)->update([
+
+                'multi_image' => $save_url,
+
+            ]);
+            $notification = array(
+                'message' => 'Multi Image Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('all.multi.image')->with($notification);
+        }}// End Method
+
+}
