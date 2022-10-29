@@ -140,8 +140,6 @@ class AboutController extends Controller
 
 
 
-
-
     public function UpdateMultiImage(Request $request)
     {
 
